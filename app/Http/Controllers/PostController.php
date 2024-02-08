@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,9 @@ class PostController extends Controller
      */
     public function index()
     {
+        //return PostResource::collection(Post::paginate());
         return inertia('Posts/Index', [
-            'posts' => Post::all()
+            'posts' => PostResource::collection(Post::query()->orderByDesc('id')->paginate())
         ]);
     }
 
